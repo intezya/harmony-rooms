@@ -1,4 +1,9 @@
 import "@testing-library/jest-dom";
+import { afterEach, vi } from "vitest";
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
