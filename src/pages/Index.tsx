@@ -1,16 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import JoinForm from "@/components/JoinForm";
+import RoomPanel from "@/components/RoomPanel";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+type Screen = { type: "join" } | { type: "room"; name: string; roomId: string };
+
+const Index = () => {
+  const [screen, setScreen] = useState<Screen>({ type: "join" });
+
+  if (screen.type === "room") {
+    return (
+      <RoomPanel
+        userName={screen.name}
+        roomId={screen.roomId}
+        onLeave={() => setScreen({ type: "join" })}
+      />
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <JoinForm onJoin={(name, roomId) => setScreen({ type: "room", name, roomId })} />
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
